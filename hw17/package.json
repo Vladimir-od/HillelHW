@@ -1,0 +1,24 @@
+{
+  "name": "swapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hw17.js",
+  "scripts": {
+    "start": "babel src -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vladimir-od/HillelHW.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vladimir-od/HillelHW/issues"
+  },
+  "homepage": "https://github.com/Vladimir-od/HillelHW#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1"
+  }
+}
