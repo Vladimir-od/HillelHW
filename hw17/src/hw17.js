@@ -3,6 +3,7 @@ const url = "https://swapi.dev/api/";
 const listName = document.querySelector(".listName");
 const list = document.querySelector(".list");
 const listDetail = document.querySelector(".listDetail");
+const info2 = document.getElementById("info2");
 
 
 function init() {
@@ -12,22 +13,26 @@ function init() {
     })
         .then(function (json) {
             for (const data in json) {
+               
                 const btn = document.createElement('button');
                 const li = document.createElement('li');
                 btn.preventDefault;
                 btn.addEventListener("click", function () {
+                    
                     let preloaderEl = document.getElementById('preloader2');
                     preloaderEl.classList.add('visible');
                     preloaderEl.classList.remove('hidden');
                     loadData2()
                     this.classList.add("active");
+                    
                 });
-                // btn.setAttribute("class", `${data}`)
                 list.appendChild(li);
                 li.appendChild(btn)
                 btn.textContent = `${data}`;
+              
             };
             createBlockItems()
+            
         });
 
 }
@@ -35,7 +40,6 @@ init();
 
 function createBlockItems() {
     const btns = document.querySelectorAll("ul.list>li>button");
-
     for (let i = 0; i < btns.length; i++) {
         btns[i].addEventListener("click", function () {
             if (listName.childElementCount > 0) {
@@ -53,7 +57,12 @@ function getRespond(nameItem) {
         })
         .then(function (data) {
             for (const names in data.results) {
-                createBlock(data.results[names].name, nameItem, names);
+                if (nameItem == "films") {
+                    createBlock(data.results[names].title, nameItem, names);
+                } else {
+
+                    createBlock(data.results[names].name, nameItem, names);
+                }
             };
             closeInfo(listName);
         });
@@ -64,13 +73,13 @@ function makeURL(urlEnd) {
     return url + urlEnd;
 };
 function createBlock(data, itemName, countNum) {
-    let btn2 = document.createElement('button');
+    const btn2 = document.createElement('button');
     const li = document.createElement('li');
     btn2.addEventListener("click", function () {
-        let preloaderEl = document.getElementById('preloader3');
+        const preloaderEl = document.getElementById('preloader3');
         preloaderEl.classList.add('visible');
         preloaderEl.classList.remove('hidden');
-        loadData3()
+        loadData3();
         this.classList.add("active");
     });
     btn2.addEventListener("click", getRespondDetails);
@@ -83,8 +92,9 @@ function createBlock(data, itemName, countNum) {
 
 };
 function closeInfo(blockName) {
-    let btnDel = document.createElement("button");
+    const btnDel = document.createElement("button");
     btnDel.innerText = "Close";
+    btnDel.className = "delete";
     btnDel.addEventListener("click", function () {
         btnDel.parentElement.innerHTML = "";
     });
@@ -106,13 +116,11 @@ function getRespondDetails() {
         .then(function (data) {
             let output = "";
             for (const key in data) {
-                console.log(typeof data[key])
                 if (typeof data[key] == "string") {
-
                     output += key + ': ' + data[key] + '; </br>';
                 }
             }
-            createBlockDetails(output)
+            createBlockDetails(output);
         });
     return answer;
 };
@@ -122,9 +130,7 @@ function createBlockDetails(data) {
     li.innerHTML = data;
     listDetail.appendChild(li);
 };
-
 loadData();
-
 function loadData() {
     return setTimeout(() => {
         let preloaderEl = document.getElementById('preloader');
@@ -139,7 +145,7 @@ function loadData2() {
         preloaderEl.classList.add('hidden');
         preloaderEl.classList.remove('visible');
 
-    }, 2000);
+    }, 1000);
 }
 function loadData3() {
     return setTimeout(() => {
@@ -147,5 +153,5 @@ function loadData3() {
         preloaderEl.classList.add('hidden');
         preloaderEl.classList.remove('visible');
 
-    }, 2000);
+    }, 1000);
 }
